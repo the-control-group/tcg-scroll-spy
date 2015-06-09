@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<script src="../../webcomponentsjs/webcomponents.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<link href="../tcg-scroll-spy.html" rel="import">
+</head>
+<body unresolved>
+	<tcg-scroll-spy id="swipe"></tcg-scroll-spy>
+	<script>
+	window.addEventListener('polymer-ready', function(e) {
+		var el = document.querySelector('tcg-scroll-spy');
+		suite('<tcg-scroll-spy>', function() {
+			test('initializes', function () {
+				assert(el._readied);
+			});
+		});
+	});
+	</script>
+</body>
+</html>

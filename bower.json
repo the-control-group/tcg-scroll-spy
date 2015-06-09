@@ -1,0 +1,32 @@
+{
+  "name": "tcg-scroll-spy",
+  "version": "0.1.0",
+  "authors": [
+    "Raymond Chou <raymond.chou@thecontrolgroup.com>"
+  ],
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer"
+  ],
+  "main": "tcg-scroll-spy.html",
+  "description": "TCG Scroll Spy.",
+  "homepage": "https://github.com/the-control-group/tcg-scroll-spy/",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.10.3",
+    "jquery": "~2.1.4",
+    "polymer": "Polymer/polymer#^0.5"
+  },
+  "devDependencies": {
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer",
+    "web-component-tester": "Polymer/web-component-tester#~2.2.6"
+  }
+}
