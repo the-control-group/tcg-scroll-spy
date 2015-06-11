@@ -3,7 +3,7 @@
 <head>
 	<title>Demo</title>
 	<script src="../webcomponentsjs/webcomponents.min.js"></script>
-	<link rel="import" href="../core-scroll-threshold/core-scroll-threshold.html">
+	<link rel="import" href="./tcg-scroll-spy.html">
 	<style>
 	html,body {
 		margin: 0;
@@ -15,82 +15,42 @@
 	<polymer-element name="tcg-scroll-spy-example">
 		<template>
 			<style>
-			#scroller {
+			tcg-scroll-spy [contentscroller] {
 				height: 300px;
 				overflow: auto;
 			}
+			tcg-scroll-spy [contentTitle] {
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: #fff;
+				z-index: 10;
+				width: 100%;
+			}
 			</style>
-			<core-scroll-threshold
-				id="threshold"
-				upperThreshold="{{ upperThreshold }}"
-				on-upper-trigger="{{ onUpperThreshold }}"
-				scrollTarget="{{ $.scroller }}">
-				</core-scroll-threshold>
-			<div>{{ contentHeader }}</div>
-			<div id="scroller">
-				<div class="title" spy-title="Title 1">Title 1</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-				<div class="title" spy-title="Title 2">Title 2</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-				<div class="title" spy-title="Title 3">Title 3</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-				<div class="title" spy-title="Title 4">Title 4</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-				<div class="title" spy-title="Title 5">Title 5</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-				<div class="title" spy-title="Title 6">Title 6</div>
-				<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
-			</div>
+			<tcg-scroll-spy contentTitle="{{ contentTitle }}" offsetTop="{{ offsetTop }}">
+				<div contentTitle>{{ contentTitle }}</div>
+				<div contentScroller>
+					<div class="title" spy-title="Title 1">Title 1</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+					<div class="title" spy-title="Title 2">Title 2</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+					<div class="title" spy-title="Title 3">Title 3</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+					<div class="title" spy-title="Title 4">Title 4</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+					<div class="title" spy-title="Title 5">Title 5</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+					<div class="title" spy-title="Title 6">Title 6</div>
+					<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
+				</div>
+			</tcg-scroll-spy>
 		</template>
 		<script>
 		Polymer({
 			publish: {
-				offsets: [],
-				offsetTop: 20,
-				upperThreshold: 0,
-				header: 'abc',
-			},
-			observe: {
-				offsets: 'setThresholds',
-			},
-			onUpperThreshold: function(event,detail,target) {
-				this.job('onUpperThreshold',function(){
-					this.setThresholds();
-					this.$.threshold.clearUpper();
-					this.fire('done');
-				},null,100);
-			},
-			setOffsets: function() {
-				var spyes = this.$.scroller.querySelectorAll('[spy-title]');
-				var offsets = [];
-				for (var i = 0; i < spyes.length; i++) {
-					offsets.push( spyes[i].offsetTop );
-				};
-				this.offsets = offsets;
-			},
-			setThresholds: function() {
-				this.job('setThresholds',function(){
-					var spyes = this.$.scroller.querySelectorAll('[spy-title]');
-					var _first = true;
-					var upperThreshold = 0;
-					var contentHeader = null;
-					for (var i = 0; i < this.offsets.length; i++) {
-						if( this.offsets[i] + this.offsetTop >= this.$.scroller.scrollTop && _first ) {
-							if( this.offsets[i] ) {
-								upperThreshold = this.offsets[i+1];
-								contentHeader = spyes[i-1].getAttribute('spy-title');
-								_first = false;
-							}
-						}
-					};
-					this.contentHeader = contentHeader;
-					this.upperThreshold = upperThreshold;
-					this.fire('done');
-				},null,100);
-			},
-			ready: function() {
-				this.setOffsets();
-			},
+				offsetTop: -5,
+			}
 		});
 		</script>
 	</polymer-element>
