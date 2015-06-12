@@ -38,7 +38,7 @@ Number offset from the top while you scroll.
 
 -->
 <link rel="import" href="../polymer/polymer.html">
-<polymer-element name="tcg-scroll-spy" attributes="offsetTop spyTitle spyContainer spyContainerHeight">
+<polymer-element name="tcg-scroll-spy" attributes="offsetTop spyTitle spies spyContainer spyContainerHeight">
 	<script src="../lodash/lodash.js"></script>
 	<script>
 		Polymer({
@@ -54,7 +54,7 @@ Number offset from the top while you scroll.
 			observe: {
 				'_upperOffsets': 'setThreshold',
 				'_upperThreshold': 'setSpyTitle',
-				'spyContainer': 'onReady',
+				'spies': 'onReady',
 			},
 			onReady: function(o,n) {
 				var poly = this;
@@ -62,14 +62,14 @@ Number offset from the top while you scroll.
 				window.onresize = function(event) {
 					poly.setPositions();
 				};
-				this.spyContainer.onscroll = function(event) {
+				this.spyContainer.style.overflow = 'auto';
+				this.spyContainer.addEventListener('scroll',function() {
 					poly.setThreshold();
-				};
-				if( poly.spyContainer ) {
-					poly.spies = poly.spyContainer.querySelectorAll('[spy-title]');
-				} else {
-					// poly.spyContainer.getDistributedNodes
-				}
+				});
+				this.spyTitle = this.spies[0].getAttribute('spy-title');
+			},
+			detached: function() {
+				this.spyContainer.removeEventListener('scroll');
 			},
 			setPositions: function() {
 				var _upperOffsets = [];
@@ -99,7 +99,7 @@ Number offset from the top while you scroll.
 				if( i == -1 ) {
 					index = this._upperOffsets.length -1;
 				}
-				if( this.spies.length ) {
+				if( this.spies.length && this.spies[index] ) {
 					this.spyTitle = this.spies[index].getAttribute('spy-title');
 				}
 			},

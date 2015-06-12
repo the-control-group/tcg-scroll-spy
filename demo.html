@@ -15,10 +15,6 @@
 	<polymer-element name="tcg-scroll-spy-example">
 		<template>
 			<style>
-			#spyContainer {
-				/*height: 300px;*/
-				overflow: auto;
-			}
 			#spyTitle {
 				position: fixed;
 				top: 0;
@@ -29,6 +25,8 @@
 			}
 			</style>
 			<tcg-scroll-spy
+				id="scrollSpy"
+				spies="{{ spies }}"
 				spyTitle="{{ spyTitle }}"
 				spyContainer="{{ spyContainer }}"
 				offsetTop="{{ offsetTop }}">
@@ -57,6 +55,7 @@
 			},
 			ready: function() {
 				this.spyContainer = this.$.spyContainer;
+				this.spies = this.$.spyContainer.querySelectorAll('[spy-title]');
 			},
 		});
 		</script>
