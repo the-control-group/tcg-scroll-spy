@@ -8,8 +8,8 @@
 __Example:__
 
 ```
-	<tcg-scroll-spy contentTitle="{{ contentTitle }}" offsetTop="{{ offsetTop }}">
-		<div contentTitle>{{ contentTitle }}</div>
+	<tcg-scroll-spy spyTitle="{{ spyTitle }}" offsetTop="{{ offsetTop }}">
+		<div spyTitle>{{ spyTitle }}</div>
 		<div contentScroller>
 			<div class="title" spy-title="Title 1">Title 1</div>
 			<p>Bacon ipsum dolor amet turducken spare ribs kielbasa corned beef landjaeger jerky. Chuck cow bresaola shank swine sausage. Porchetta ribeye prosciutto pancetta, t-bone pork shankle short loin tail. Short ribs fatback doner pastrami landjaeger swine capicola salami pork loin pork chop tongue ribeye pork cupim filet mignon. Pork belly pork loin turducken sirloin biltong boudin salami cow pig alcatra shank tongue capicola meatloaf. Ham ribeye leberkas pork chop pork belly. Cupim pork pancetta kielbasa strip steak swine ground round tongue ham.</p>
@@ -28,7 +28,7 @@ __Example:__
 ```
 # Attributes
 
-#### `contentTitle`
+#### `spyTitle`
 
 Value from elements with the attribute `spy-title` when you scroll pass it.
 
@@ -38,64 +38,70 @@ Number offset from the top while you scroll.
 
 -->
 <link rel="import" href="../polymer/polymer.html">
-<polymer-element name="tcg-scroll-spy" attributes="offsetTop contentTitle">
-	<template>
-		<content id="contentTitle" select="[contentTitle]"></content>
-		<content id="contentScroller" select="[contentScroller]"></content>
-	</template>
+<polymer-element name="tcg-scroll-spy" attributes="offsetTop spyTitle spyContainer spyContainerHeight">
 	<script src="../lodash/lodash.js"></script>
 	<script>
 		Polymer({
 			publish: {
-				contentTitle: '',
+				spyContainer: null,
+				spies: [],
+				spyTitle: '',
 				offsetTop: 0,
+				spyContainerHeight: window.innerHeight,
 				_upperOffsets: [],
 				_upperThreshold: 0,
 			},
 			observe: {
-				'_upperOffsets': 'setPosition',
-				'_upperThreshold': 'setContentTitle',
+				'_upperOffsets': 'setThreshold',
+				'_upperThreshold': 'setSpyTitle',
+				'spyContainer': 'onReady',
 			},
-			ready: function() {
+			onReady: function(o,n) {
 				var poly = this;
-				poly.setOffsets();
+				poly.setPositions();
 				window.onresize = function(event) {
-					poly.setOffsets();
+					poly.setPositions();
 				};
-				this.$.contentScroller.getDistributedNodes()[0].onscroll = function(event) {
-					poly.setPosition();
+				this.spyContainer.onscroll = function(event) {
+					poly.setThreshold();
 				};
+				if( poly.spyContainer ) {
+					poly.spies = poly.spyContainer.querySelectorAll('[spy-title]');
+				} else {
+					// poly.spyContainer.getDistributedNodes
+				}
 			},
-			setOffsets: function() {
-				var spies = this.$.contentScroller.getDistributedNodes()[0].querySelectorAll('[spy-title]');
+			setPositions: function() {
 				var _upperOffsets = [];
 				this.async(function(){
-					for (var i = 0; i < spies.length; i++) {
-						var spyTop = spies[i].offsetTop;
+					this.spyContainer.style.height = this.spyContainerHeight+'px';
+					for (var i = 0; i < this.spies.length; i++) {
+						var spyTop = this.spies[i].offsetTop;
 						_upperOffsets.push( spyTop );
 					};
 					this._upperOffsets = _upperOffsets;
 				});
 			},
-			setPosition: function() {
+			setThreshold: function() {
 				var _firstTop = true;
-				var _upperThreshold = this.$.contentScroller.getDistributedNodes()[0].scrollHeight;
+				var _upperThreshold = this.spyContainer.scrollHeight;
 				for (var i = 0; i < this._upperOffsets.length; i++) {
-					if( this._upperOffsets[i] + this.offsetTop >= this.$.contentScroller.getDistributedNodes()[0].scrollTop && _firstTop ) {
+					if( this._upperOffsets[i] + this.offsetTop >= this.spyContainer.scrollTop && _firstTop ) {
 						_upperThreshold = this._upperOffsets[i];
 						_firstTop = false;
 					}
 				}
 				this._upperThreshold = _upperThreshold;
 			},
-			setContentTitle: function() {
+			setSpyTitle: function() {
 				var i = _.indexOf(this._upperOffsets,this._upperThreshold);
-				var spies = this.$.contentScroller.getDistributedNodes()[0].querySelectorAll('[spy-title]');
 				var index = i-1;
 				if( i == -1 ) {
 					index = this._upperOffsets.length -1;
 				}
-				this.contentTitle = spies[index].getAttribute('spy-title');
+				if( this.spies.length ) {
+					this.spyTitle = this.spies[index].getAttribute('spy-title');
+				}
 			},
 		});
 	</script>
