@@ -48,11 +48,11 @@ Number offset from the top while you scroll.
 				spyTitle: '',
 				offsetTop: 0,
 				spyContainerHeight: window.innerHeight,
-				_upperOffsets: [],
+				_upperPositions: [],
 				_upperThreshold: 0,
 			},
 			observe: {
-				'_upperOffsets': 'setThreshold',
+				'_upperPositions': 'setThreshold',
 				'_upperThreshold': 'setSpyTitle',
 				'spies': 'onReady',
 			},
@@ -72,32 +72,32 @@ Number offset from the top while you scroll.
 				this.spyContainer.removeEventListener('scroll');
 			},
 			setPositions: function() {
-				var _upperOffsets = [];
+				var _upperPositions = [];
 				this.async(function(){
 					this.spyContainer.style.height = this.spyContainerHeight+'px';
 					for (var i = 0; i < this.spies.length; i++) {
 						var spyTop = this.spies[i].offsetTop;
-						_upperOffsets.push( spyTop );
+						_upperPositions.push( spyTop );
 					};
-					this._upperOffsets = _upperOffsets;
+					this._upperPositions = _upperPositions;
 				});
 			},
 			setThreshold: function() {
 				var _firstTop = true;
 				var _upperThreshold = this.spyContainer.scrollHeight;
-				for (var i = 0; i < this._upperOffsets.length; i++) {
-					if( this._upperOffsets[i] + this.offsetTop >= this.spyContainer.scrollTop && _firstTop ) {
-						_upperThreshold = this._upperOffsets[i];
+				for (var i = 0; i < this._upperPositions.length; i++) {
+					if( this._upperPositions[i] + this.offsetTop >= this.spyContainer.scrollTop && _firstTop ) {
+						_upperThreshold = this._upperPositions[i];
 						_firstTop = false;
 					}
 				}
 				this._upperThreshold = _upperThreshold;
 			},
 			setSpyTitle: function() {
-				var i = _.indexOf(this._upperOffsets,this._upperThreshold);
+				var i = _.indexOf(this._upperPositions,this._upperThreshold);
 				var index = i-1;
 				if( i == -1 ) {
-					index = this._upperOffsets.length -1;
+					index = this._upperPositions.length -1;
 				}
 				if( this.spies.length && this.spies[index] ) {
 					this.spyTitle = this.spies[index].getAttribute('spy-title');
