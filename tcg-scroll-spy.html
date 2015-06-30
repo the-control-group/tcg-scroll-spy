@@ -38,7 +38,7 @@ Number offset from the top while you scroll.
 
 -->
 <link rel="import" href="../polymer/polymer.html">
-<polymer-element name="tcg-scroll-spy" attributes="offsetTop spyTitle spies spyContainer spyContainerHeight">
+<polymer-element name="tcg-scroll-spy" attributes="offsetTop spyTitle spies spyContainer spyContainerHeight spyOffset">
 	<script src="../lodash/lodash.js"></script>
 	<script>
 		Polymer({
@@ -47,6 +47,7 @@ Number offset from the top while you scroll.
 				spies: [],
 				spyTitle: '',
 				offsetTop: 0,
+				spyOffset: 0,
 				spyContainerHeight: window.innerHeight,
 				_upperPositions: [],
 				_upperThreshold: 0,
@@ -74,7 +75,7 @@ Number offset from the top while you scroll.
 			setPositions: function() {
 				var _upperPositions = [];
 				this.async(function(){
-					this.spyContainerHeight = window.innerHeight;
+					this.spyContainerHeight = window.innerHeight - this.spyOffset;
 					this.spyContainer.style.height = this.spyContainerHeight+'px';
 					for (var i = 0; i < this.spies.length; i++) {
 						var spyTop = this.spies[i].offsetTop;
